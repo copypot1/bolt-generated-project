@@ -7,6 +7,11 @@ import './style.css';
     backgroundLayer.classList.add('background-layer');
     app.appendChild(backgroundLayer);
 
+    // Create space-themed background
+    const spaceBackground = document.createElement('div');
+    spaceBackground.classList.add('space-background');
+    app.appendChild(spaceBackground);
+
     // Create info text
     const infoText = document.createElement('div');
     infoText.classList.add('info');
@@ -76,12 +81,55 @@ import './style.css';
     creditsButton.addEventListener('click', handleCreditsClick);
     closeCreditsButton.addEventListener('click', handleCloseCredits);
 
-    // Parallax effect
+    // Initialize stars
+    createStars();
+
+    // Mouse move effect for stars
     document.addEventListener('mousemove', (event) => {
-      const x = event.clientX / window.innerWidth - 0.5;
-      const y = event.clientY / window.innerHeight - 0.5;
-      backgroundLayer.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+      const x = event.clientX;
+      const y = event.clientY;
+
+      const stars = document.querySelectorAll('.star');
+      stars.forEach(star => {
+        const starX = star.offsetLeft + star.offsetWidth / 2;
+        const starY = star.offsetTop + star.offsetHeight / 2;
+
+        const deltaX = x - starX;
+        const deltaY = y - starY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        const maxDistance = 300;
+        const attractionFactor = Math.max(0, (maxDistance - distance) / maxDistance);
+
+        const moveX = deltaX * attractionFactor * 0.1;
+        const moveY = deltaY * attractionFactor * 0.1;
+
+        star.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
     });
+
+    function createStars() {
+      const numStars = 100;
+      for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        positionStar(star);
+        spaceBackground.appendChild(star);
+      }
+    }
+
+    function positionStar(star) {
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const size = Math.random() * 3;
+      const animationDuration = 50 + Math.random() * 100;
+
+      star.style.left = `${x}%`;
+      star.style.top = `${y}%`;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.animation = `twinkle ${animationDuration}s infinite`;
+    }
 
     function handleCellClick(event) {
       const cell = event.target;
@@ -101,6 +149,7 @@ import './style.css';
 
         // Add blur to background elements
         backgroundLayer.classList.add('blur');
+        spaceBackground.classList.add('blur');
         infoText.classList.add('blur');
         board.classList.add('blur');
 
@@ -118,6 +167,7 @@ import './style.css';
 
         // Add blur to background elements
         backgroundLayer.classList.add('blur');
+        spaceBackground.classList.add('blur');
         infoText.classList.add('blur');
         board.classList.add('blur');
 
@@ -173,6 +223,7 @@ import './style.css';
 
       // Remove blur from all elements
       backgroundLayer.classList.remove('blur');
+      spaceBackground.classList.remove('blur');
       infoText.classList.remove('blur');
       board.classList.remove('blur');
       restartButton.classList.remove('blur');
@@ -182,6 +233,7 @@ import './style.css';
 
       // Set initial opacity for fade-in
       backgroundLayer.style.opacity = 0;
+      spaceBackground.style.opacity = 0;
       infoText.style.opacity = 0;
       board.style.opacity = 0;
       restartButton.style.opacity = 0;
@@ -204,6 +256,7 @@ import './style.css';
 
         // Fade in elements
         backgroundLayer.style.opacity = 1;
+        spaceBackground.style.opacity = 1;
         infoText.style.opacity = 1;
         board.style.opacity = 1;
         restartButton.style.opacity = 1;
@@ -217,6 +270,7 @@ import './style.css';
       // Show credits menu and blur background
       creditsMenu.classList.add('show');
       backgroundLayer.classList.add('blur');
+      spaceBackground.classList.add('blur');
       infoText.classList.add('blur');
       board.classList.add('blur');
       restartButton.classList.add('blur');
@@ -227,6 +281,7 @@ import './style.css';
       // Hide credits menu and remove blur from background
       creditsMenu.classList.remove('show');
       backgroundLayer.classList.remove('blur');
+      spaceBackground.classList.remove('blur');
       infoText.classList.remove('blur');
       board.classList.remove('blur');
       restartButton.classList.remove('blur');
