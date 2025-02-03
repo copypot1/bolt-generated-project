@@ -181,3 +181,65 @@ body {
       z-index: 35;
       animation: futuristicFadeIn 1s forwards;
     }
+
+    .credits-button {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      padding: 10px;
+      font-size: 14px;
+      background-color: #1a232e;
+      color: white;
+      border: 2px solid #30363d;
+      cursor: pointer;
+      border-radius: 5px;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+    }
+
+    .credits-button:hover {
+      background-color: #2e7d32;
+    }
+
+    .credits-menu {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 40;
+      background-color: #1a232e;
+      border: 3px solid #30363d;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .credits-menu.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .credits-text {
+      font-size: 24px;
+      color: #eee;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .close-credits {
+      padding: 5px 10px;
+      font-size: 16px;
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .close-credits:hover {
+      background-color: #c9302c;
+    }

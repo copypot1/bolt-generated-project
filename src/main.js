@@ -42,6 +42,29 @@ import './style.css';
     winnerText.classList.add('winner-text');
     winnerContainer.appendChild(winnerText);
 
+    // Create credits button
+    const creditsButton = document.createElement('button');
+    creditsButton.classList.add('credits-button');
+    creditsButton.textContent = 'Credits';
+    app.appendChild(creditsButton);
+
+    // Create credits menu
+    const creditsMenu = document.createElement('div');
+    creditsMenu.classList.add('credits-menu');
+    app.appendChild(creditsMenu);
+
+    // Create credits text
+    const creditsText = document.createElement('div');
+    creditsText.classList.add('credits-text');
+    creditsText.textContent = 'By Ash';
+    creditsMenu.appendChild(creditsText);
+
+    // Create close button for credits menu
+    const closeCreditsButton = document.createElement('button');
+    closeCreditsButton.classList.add('close-credits');
+    closeCreditsButton.textContent = 'X';
+    creditsMenu.appendChild(closeCreditsButton);
+
     // Game variables
     let currentPlayer = 'X';
     let gameBoard = ['', '', '', '', '', '', '', '', ''];
@@ -50,6 +73,8 @@ import './style.css';
     // Event listeners
     board.addEventListener('click', handleCellClick);
     restartButton.addEventListener('click', handleRestartClick);
+    creditsButton.addEventListener('click', handleCreditsClick);
+    closeCreditsButton.addEventListener('click', handleCloseCredits);
 
     // Parallax effect
     document.addEventListener('mousemove', (event) => {
@@ -186,4 +211,24 @@ import './style.css';
         // Reset background to default color
         document.body.style.backgroundColor = '#0d1117';
       }, 1000);
+    }
+
+    function handleCreditsClick() {
+      // Show credits menu and blur background
+      creditsMenu.classList.add('show');
+      backgroundLayer.classList.add('blur');
+      infoText.classList.add('blur');
+      board.classList.add('blur');
+      restartButton.classList.add('blur');
+      creditsButton.classList.add('blur');
+    }
+
+    function handleCloseCredits() {
+      // Hide credits menu and remove blur from background
+      creditsMenu.classList.remove('show');
+      backgroundLayer.classList.remove('blur');
+      infoText.classList.remove('blur');
+      board.classList.remove('blur');
+      restartButton.classList.remove('blur');
+      creditsButton.classList.remove('blur');
     }
